@@ -1,11 +1,11 @@
-public interface Widget {
+public interface Widget extends Comparable<Widget> {
     String getId();
-
     String getNombre();
-
-    int getMemoria();
-
+    int getMemoria(); // en KB
     void renderizar();
 
-    void interactuar();
+    @Override
+    default int compareTo(Widget otro) {
+        return Integer.compare(this.getMemoria(), otro.getMemoria());
+    }
 }

@@ -1,12 +1,11 @@
-public class AlertWidget implements Widget {
+public class AlertWidget implements WidgetInteractivo {
     private String id;
     private String mensaje;
     private int prioridad;
     private boolean leida;
     private int memoria;
 
-    public AlertWidget(String id, String mensaje,
-                       int prioridad, int memoria) {
+    public AlertWidget(String id, String mensaje, int prioridad, int memoria) {
         this.id = id;
         this.mensaje = mensaje;
         this.prioridad = prioridad;
@@ -40,5 +39,6 @@ public class AlertWidget implements Widget {
     @Override
     public void interactuar() {
         leida = true;
+        System.out.println("Alerta marcada como leída.");
     }
 }
