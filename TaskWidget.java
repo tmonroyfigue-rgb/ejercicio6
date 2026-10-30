@@ -1,44 +1,29 @@
-public class AlertWidget implements Widget {
+public class TaskWidget implements widget {
+
     private String id;
-    private String mensaje;
-    private int prioridad;
-    private boolean leida;
+    private list<String> tareas;
+    private list<Boolean> completadas;
     private int memoria;
 
-    public AlertWidget(String id, String mensaje,
-                       int prioridad, int memoria) {
+
+    public TaskWidget(String id, List<String> tareas, int memoria) {
         this.id = id;
-        this.mensaje = mensaje;
-        this.prioridad = prioridad;
+        this.tareas = new ArrayList<>(tareas);
+        this.completadas = new ArrayList<>();
+
+        for (int i = 0; i < tareas.size(); i++) {
+            completadas.add(false);
+        }
+
         this.memoria = memoria;
-        this.leida = false;
     }
 
-    @Override
-    public String getId() {
-        return id;
+    public void renderizar(){
+
     }
 
-    @Override
-    public String getNombre() {
-        return "Alerta";
+    public void interactuar(){
+
     }
 
-    @Override
-    public int getMemoria() {
-        return memoria;
-    }
-
-    @Override
-    public void renderizar() {
-        System.out.println(
-            "Alerta (prioridad " + prioridad + "): " + mensaje
-            + (leida ? " [Leída]" : " [Sin leer]")
-        );
-    }
-
-    @Override
-    public void interactuar() {
-        leida = true;
-    }
 }
