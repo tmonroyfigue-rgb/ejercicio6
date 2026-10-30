@@ -1,3 +1,12 @@
+import java.awt.BorderLayout;
+import java.awt.Font;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+
 // Ciudad se guarda como String y la temperatura como double porque es lo más
 // simple: la ciudad solo se muestra (no necesita comportamiento propio) y la
 // temperatura necesita decimales para la conversión Celsius/Fahrenheit.
@@ -45,6 +54,39 @@ public class WeatherWidget implements WidgetInteractivo {
             unidad = "Celsius";
             temperatura = (temperatura - 32) * 5 / 9;
         }
-        System.out.println("Unidad cambiada a " + unidad);
+    }
+
+    private String textoTemperatura() {
+        String simbolo = unidad.equals("Celsius") ? "C" : "F";
+        return String.format("%.1f° %s", temperatura, simbolo);
+    }
+
+    private String textoBoton() {
+        return unidad.equals("Celsius") ? "Cambiar a °F" : "Cambiar a °C";
+    }
+
+    @Override
+    public JComponent obtenerVista() {
+        JPanel panel = new JPanel(new BorderLayout(8, 8));
+        panel.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createTitledBorder(getNombre() + "  (" + id + " · " + memoria + " KB)"),
+                BorderFactory.createEmptyBorder(8, 8, 8, 8)));
+
+        JLabel lblTemperatura = new JLabel(textoTemperatura(), SwingConstants.CENTER);
+        lblTemperatura.setFont(lblTemperatura.getFont().deriveFont(Font.BOLD, 28f));
+
+        JLabel lblCiudad = new JLabel(ciudad, SwingConstants.CENTER);
+
+        JButton btnUnidad = new JButton(textoBoton());
+        btnUnidad.addActionListener(e -> {
+            interactuar();
+            lblTemperatura.setText(textoTemperatura());
+            btnUnidad.setText(textoBoton());
+        });
+
+        panel.add(lblCiudad, BorderLayout.NORTH);
+        panel.add(lblTemperatura, BorderLayout.CENTER);
+        panel.add(btnUnidad, BorderLayout.SOUTH);
+        return panel;
     }
 }

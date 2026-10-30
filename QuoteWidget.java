@@ -1,3 +1,10 @@
+import java.awt.BorderLayout;
+import javax.swing.BorderFactory;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+
 public class QuoteWidget implements Widget {
     private String id;
     private String cita;
@@ -29,5 +36,20 @@ public class QuoteWidget implements Widget {
     @Override
     public void renderizar() {
         System.out.println("\"" + cita + "\" — " + autor);
+    }
+
+    @Override
+    public JComponent obtenerVista() {
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createTitledBorder(getNombre() + "  (" + id + " · " + memoria + " KB)"),
+                BorderFactory.createEmptyBorder(8, 8, 8, 8)));
+
+        JLabel lblCita = new JLabel(
+                "<html><div style='width:220px; text-align:center'><i>\"" + cita + "\"</i>"
+                + "<br><br>— " + autor + "</div></html>",
+                SwingConstants.CENTER);
+        panel.add(lblCita, BorderLayout.CENTER);
+        return panel;
     }
 }

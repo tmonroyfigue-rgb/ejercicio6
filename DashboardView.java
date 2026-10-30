@@ -1,41 +1,75 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
 
+// VISTA: ventana principal. Solo dibuja; la lógica la maneja el controlador.
 public class DashboardView extends JFrame {
     private final JPanel panelWidgets;
+    private final JTextField txtBusqueda;
+    private final JButton btnBuscar;
+    private final JButton btnMostrarTodos;
+    private final JButton btnOrdenar;
+    private final JLabel lblEstado;
 
-    public DashboardView(List<Widget> widgets) {
+    public DashboardView() {
         setTitle("Dashboard empresarial");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setMinimumSize(new Dimension(700, 500));
+        setMinimumSize(new Dimension(800, 600));
         setLayout(new BorderLayout(12, 12));
 
+        // Barra superior: título + botones globales
         JLabel titulo = new JLabel("Panel de control", SwingConstants.CENTER);
         titulo.setBorder(BorderFactory.createEmptyBorder(16, 10, 8, 10));
         titulo.setFont(titulo.getFont().deriveFont(22f));
-        add(titulo, BorderLayout.NORTH);
 
+        txtBusqueda = new JTextField(16);
+        btnBuscar = new JButton("Buscar (ID o nombre)");
+        btnMostrarTodos = new JButton("Mostrar todos");
+        btnOrdenar = new JButton("Ordenar por memoria (KB)");
+
+        JPanel barraBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 8, 4));
+        barraBotones.add(txtBusqueda);
+        barraBotones.add(btnBuscar);
+        barraBotones.add(btnMostrarTodos);
+        barraBotones.add(btnOrdenar);
+
+        JPanel barraSuperior = new JPanel(new BorderLayout());
+        barraSuperior.add(titulo, BorderLayout.NORTH);
+        barraSuperior.add(barraBotones, BorderLayout.SOUTH);
+        add(barraSuperior, BorderLayout.NORTH);
+
+        // Centro: cuadrícula con la vista de cada widget
         panelWidgets = new JPanel(new GridLayout(0, 2, 12, 12));
         panelWidgets.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
         panelWidgets.setBackground(new Color(240, 243, 248));
 
-        cargarWidgets(widgets);
-        add(new JScrollPane(panelWidgets), BorderLayout.CENTER);
+        JScrollPane scroll = new JScrollPane(panelWidgets);
+        scroll.getVerticalScrollBar().setUnitIncrement(16);
+        add(scroll, BorderLayout.CENTER);
 
+        // Abajo: línea de estado
+        lblEstado = new JLabel(" ");
+        lblEstado.setBorder(BorderFactory.createEmptyBorder(4, 12, 8, 12));
+        add(lblEstado, BorderLayout.SOUTH);
+
+        pack();
         setLocationRelativeTo(null);
     }
 
-    public void cargarWidgets(List<Widget> widgets) {
+    // Reemplaza el contenido de la cuadrícula con las vistas de los widgets dados
+    public void mostrarWidgets(List<Widget> widgets) {
         panelWidgets.removeAll();
 
         for (Widget widget : widgets) {
@@ -46,10 +80,28 @@ public class DashboardView extends JFrame {
         panelWidgets.repaint();
     }
 
-    public static void mostrar(List<Widget> widgets) {
-        SwingUtilities.invokeLater(() -> {
-            DashboardView vista = new DashboardView(widgets);
-            vista.setVisible(true);
-        });
+    public String getTextoBusqueda() {
+        return txtBusqueda.getText().trim();
+    }
+
+    public void limpiarBusqueda() {
+        txtBusqueda.setText("");
+    }
+
+    public void mostrarEstado(String mensaje) {
+        lblEstado.setText(mensaje);
+    }
+
+    public void setBuscarListener(ActionListener listener) {
+        btnBuscar.addActionListener(listener);
+        txtBusqueda.addActionListener(listener); // Enter también busca
+    }
+
+    public void setMostrarTodosListener(ActionListener listener) {
+        btnMostrarTodos.addActionListener(listener);
+    }
+
+    public void setOrdenarListener(ActionListener listener) {
+        btnOrdenar.addActionListener(listener);
     }
 }
