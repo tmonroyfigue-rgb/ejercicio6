@@ -14,7 +14,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-// VISTA: ventana principal. Solo dibuja; la lógica la maneja el controlador.
 public class DashboardView extends JFrame {
     private final JPanel panelWidgets;
     private final JTextField txtBusqueda;
@@ -29,7 +28,6 @@ public class DashboardView extends JFrame {
         setMinimumSize(new Dimension(800, 600));
         setLayout(new BorderLayout(12, 12));
 
-        // Barra superior: título + botones globales
         JLabel titulo = new JLabel("Panel de control", SwingConstants.CENTER);
         titulo.setBorder(BorderFactory.createEmptyBorder(16, 10, 8, 10));
         titulo.setFont(titulo.getFont().deriveFont(22f));
@@ -50,7 +48,6 @@ public class DashboardView extends JFrame {
         barraSuperior.add(barraBotones, BorderLayout.SOUTH);
         add(barraSuperior, BorderLayout.NORTH);
 
-        // Centro: cuadrícula con la vista de cada widget
         panelWidgets = new JPanel(new GridLayout(0, 2, 12, 12));
         panelWidgets.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
         panelWidgets.setBackground(new Color(240, 243, 248));
@@ -59,7 +56,6 @@ public class DashboardView extends JFrame {
         scroll.getVerticalScrollBar().setUnitIncrement(16);
         add(scroll, BorderLayout.CENTER);
 
-        // Abajo: línea de estado
         lblEstado = new JLabel(" ");
         lblEstado.setBorder(BorderFactory.createEmptyBorder(4, 12, 8, 12));
         add(lblEstado, BorderLayout.SOUTH);
@@ -68,7 +64,6 @@ public class DashboardView extends JFrame {
         setLocationRelativeTo(null);
     }
 
-    // Reemplaza el contenido de la cuadrícula con las vistas de los widgets dados
     public void mostrarWidgets(List<Widget> widgets) {
         panelWidgets.removeAll();
 
@@ -94,7 +89,7 @@ public class DashboardView extends JFrame {
 
     public void setBuscarListener(ActionListener listener) {
         btnBuscar.addActionListener(listener);
-        txtBusqueda.addActionListener(listener); // Enter también busca
+        txtBusqueda.addActionListener(listener);
     }
 
     public void setMostrarTodosListener(ActionListener listener) {

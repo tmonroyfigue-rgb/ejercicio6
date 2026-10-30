@@ -47,7 +47,6 @@ public class TaskWidget implements WidgetInteractivo {
         }
     }
 
-    // Marca como completada la primera tarea pendiente
     @Override
     public void interactuar() {
         for (int i = 0; i < tareas.size(); i++) {

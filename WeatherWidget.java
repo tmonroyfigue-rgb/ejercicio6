@@ -7,9 +7,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-// Ciudad se guarda como String y la temperatura como double porque es lo más
-// simple: la ciudad solo se muestra (no necesita comportamiento propio) y la
-// temperatura necesita decimales para la conversión Celsius/Fahrenheit.
 public class WeatherWidget implements WidgetInteractivo {
     private String id;
     private String ciudad;

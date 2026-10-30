@@ -56,7 +56,6 @@ public class ClockWidget implements Widget {
         lblHora.setFont(lblHora.getFont().deriveFont(Font.BOLD, 32f));
         panel.add(lblHora, BorderLayout.CENTER);
 
-        // Actualiza la hora cada segundo mientras el panel esté visible
         Timer timer = new Timer(1000, e -> lblHora.setText(horaActual()));
         panel.addHierarchyListener(e -> {
             if ((e.getChangeFlags() & HierarchyEvent.SHOWING_CHANGED) != 0) {

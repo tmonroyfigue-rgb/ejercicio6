@@ -1,7 +1,5 @@
 import java.util.List;
 
-// CONTROLADOR: captura los eventos de los botones globales de la vista,
-// invoca la lógica del modelo y le indica a la vista que se actualice.
 public class DashboardController {
     private final Dashboard modelo;
     private final DashboardView vista;
