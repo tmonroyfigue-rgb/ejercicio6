@@ -1,3 +1,5 @@
+package modelo;
+
 import java.awt.BorderLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;

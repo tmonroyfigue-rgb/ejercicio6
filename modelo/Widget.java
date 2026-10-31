@@ -1,3 +1,5 @@
+package modelo;
+
 import javax.swing.JComponent;
 
 public interface Widget extends Comparable<Widget> {

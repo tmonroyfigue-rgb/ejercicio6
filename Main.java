@@ -1,3 +1,6 @@
+import controlador.DashboardController;
+import modelo.Dashboard;
+import vista.DashboardView;
 import javax.swing.SwingUtilities;
 
 public class Main {

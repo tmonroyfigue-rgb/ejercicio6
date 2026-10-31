@@ -1,3 +1,8 @@
+package controlador;
+
+import modelo.Dashboard;
+import modelo.Widget;
+import vista.DashboardView;
 import java.util.List;
 
 public class DashboardController {
